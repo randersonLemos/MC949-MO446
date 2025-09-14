@@ -1,0 +1,10 @@
+scripts/.ipynb_checkpoints/0_Rec3DPre-checkpoint.ipynb
+*.swp
+scripts/.idea/
+scripts/.ipynb_checkpoints/
+*.db
+SampleSet/Dino/
+SampleSet/Temple/
+3DImageReconstruction/
+scripts/classes/__pycache__/
+scripts/.ipynb_checkpoints/0_Rec3DPre-checkpoint.ipynb
