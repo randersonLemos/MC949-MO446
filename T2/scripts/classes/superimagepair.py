@@ -220,7 +220,7 @@ class SuperImagePair():
             print("Must run estimate_pose() first")
             return None, None
 
-        R2 = self.R
+        R2 = self.R.T
         C2 = -self.R.T @ self.t  # camera center in camera 1 frame
         return R2, C2
 

@@ -68,22 +68,31 @@ class Plot:
         plt.tight_layout()
         plt.show()
 
+
     @classmethod
-    def plot_cameras_frustum(cls, R1, t1, R2, t2, points_3d=None):
+    def plot_cameras_frustum(cls, camera_poses, points_3d=None, scale=0.33):
+        """
+        Plot multiple camera frustums and optional 3D points.
+
+        camera_poses: list of tuples [(R1, C1), (R2, C2), ...]
+            - R: 3x3 rotation matrix (camera->world)
+            - C: 3x1 camera center in world coordinates
+        points_3d: optional Nx3 array of 3D points
+        scale: frustum size
+        """
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
 
-        # Camera 1
-        draw_camera_frustum(ax, R1, t1, scale=0.33, color='r')
-        ax.scatter([], [], [], c='r', marker='o', label='Camera 1')  # dummy for legend
-
-        # Camera 2
-        draw_camera_frustum(ax, R2, t2, scale=0.33, color='b')
-        ax.scatter([], [], [], c='b', marker='o', label='Camera 2')  # dummy for legend
+        colors = plt.cm.get_cmap('tab10', len(camera_poses))  # automatic colors
+        for i, (R, C) in enumerate(camera_poses):
+            color = colors(i) if hasattr(colors, '__call__') else 'r'
+            draw_camera_frustum(ax, R, C, scale=scale, color=color)
+            ax.scatter([], [], [], c=[color], marker='o', label=f'Camera {i + 1}')  # dummy for legend
 
         # 3D points
         if points_3d is not None:
-            ax.scatter(points_3d[:, 0], points_3d[:, 1], points_3d[:, 2], c='g', marker='.', label='3D points')
+            ax.scatter(points_3d[:, 0], points_3d[:, 1], points_3d[:, 2],
+                       c='g', marker='.', s=2.5, label='3D points')
 
         # Axis labels and aspect
         ax.set_xlabel('X')
@@ -91,7 +100,7 @@ class Plot:
         ax.set_zlabel('Z')
         ax.set_box_aspect([1, 1, 1])
 
-        # Add legend
+        # Legend
         ax.legend()
 
         # Optional: set camera-friendly perspective
