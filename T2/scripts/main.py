@@ -127,8 +127,12 @@ def StructedFromMotionPair(imag1Path, imag2Path, verbose):
     R1, t1 = sip.get_camera_1_pose()
     R2, t2 = sip.get_camera_2_pose()
     points3d = sip.get_points3d()
+    points3d_color = sip.get_points3d_colors()
 
-    if verbose : Plot.plot_cameras_frustum([(R1, t1), (R2, t2)], points3d)
+    if verbose:
+        Plot.plot_cameras_frustum([(R1, t1), (R2, t2)], points3d, points3d_size=15)
+        Plot.plot_cameras_frustum([(R1, t1), (R2, t2)], points3d, points3d_color, points3d_size=15)
+
 
     return sip
 
@@ -142,25 +146,25 @@ def StructedFromMotionSequential(SUPERIMAGEPAIRs, verbose):
 
 
 if __name__ == '__main__':
-    # ROOT_DIR_IMAGES = '../SampleSet/MVS Data/scan6_2_1'
-    # paths = ImageMisc.get_paths(ROOT_DIR_IMAGES, '*max.png')
-    # imag1Path, imag2Path = next(iter(zip(paths[:-1], paths[1:])))
-    # superimagepair = StructedFromMotionPair(imag1Path, imag2Path, verbose=True)
-
-
-    ROOT_DIR_IMAGES = '../SampleSet/MVS Data/scan6_5_1'
+    ROOT_DIR_IMAGES = '../SampleSet/MVS Data/scan6_2_1'
     paths = ImageMisc.get_paths(ROOT_DIR_IMAGES, '*max.png')
-    SUPERIMAGEPAIRs = []
-    for imag1Path, imag2Path in zip(paths[:-1], paths[1:]):
-        superimagepair = StructedFromMotionPair(imag1Path, imag2Path, verbose=False)
-        SUPERIMAGEPAIRs.append(superimagepair)
+    imag1Path, imag2Path = next(iter(zip(paths[:-1], paths[1:])))
+    superimagepair = StructedFromMotionPair(imag1Path, imag2Path, verbose=True)
 
-    camera_poses, points3d = StructedFromMotionSequential(SUPERIMAGEPAIRs, verbose=False)
 
-    Plot.plot_cameras_frustum(camera_poses, points3d)
-
-    points3d = remove_nearby_points(points3d, threshold=0.1)
-    Plot.plot_cameras_frustum(camera_poses, points3d)
-
-    points3d = remove_outliers_std(points3d, n_std=2)
-    Plot.plot_cameras_frustum(camera_poses, points3d)
+    # ROOT_DIR_IMAGES = '../SampleSet/MVS Data/scan6_7_1'
+    # paths = ImageMisc.get_paths(ROOT_DIR_IMAGES, '*max.png')
+    # SUPERIMAGEPAIRs = []
+    # for imag1Path, imag2Path in zip(paths[:-1], paths[1:]):
+    #     superimagepair = StructedFromMotionPair(imag1Path, imag2Path, verbose=False)
+    #     SUPERIMAGEPAIRs.append(superimagepair)
+    #
+    # camera_poses, points3d = StructedFromMotionSequential(SUPERIMAGEPAIRs, verbose=False)
+    #
+    # Plot.plot_cameras_frustum(camera_poses, points3d)
+    #
+    # points3d = remove_nearby_points(points3d, threshold=0.1)
+    # Plot.plot_cameras_frustum(camera_poses, points3d)
+    #
+    # points3d = remove_outliers_std(points3d, n_std=2)
+    # Plot.plot_cameras_frustum(camera_poses, points3d)
