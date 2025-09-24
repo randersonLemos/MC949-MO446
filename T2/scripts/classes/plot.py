@@ -52,7 +52,7 @@ def draw_camera_frustum(ax, R, t, scale=0.1, depth_factor=3.0, color='r'):
 
 class Plot:
     @classmethod
-    def plot_images_grid(cls, images, nrows=1, ncols=1, figsize=(12, 8)):
+    def plot_images_grid(cls, images, nrows=1, ncols=1, figsize=(12, 8), save_path=None, show=False):
         fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize)
 
         # Make axes iterable, whether it's 1 Axes or an array
@@ -72,54 +72,91 @@ class Plot:
             ax.axis("off")
 
         plt.tight_layout()
-        plt.show()
+
+        # ✅ Save if path is provided
+        if save_path is not None:
+            plt.savefig(save_path)
+
+        # ✅ Show only if requested
+        if show:
+            plt.show()
+        else:
+            plt.close(fig)
+
 
     @classmethod
-    def plot_cameras_frustum(cls, camera_poses, points3d=None, points3d_color=None, scale=0.33, points3d_size=2.5):
+    def plot_cameras_frustum(cls,
+                             camera_poses,
+                             points3d=None,
+                             points3d_color=None,
+                             scale=0.33,
+                             points3d_size=2.5,
+                             save_path=None,
+                             show=False):
         """
-        Plot multiple camera frustums and optional 3D points.
+        Plot multiple camera frustums and optional 3D points from four different angles.
 
-        camera_poses: list of tuples [(R1, C1), (R2, C2), ...]
-            - R: 3x3 rotation matrix (camera->world)
-            - C: 3x1 camera center in world coordinates
-        points3d: optional Nx3 array of 3D points
-        points3d_color: optional Nx3 array of RGB colors for each 3D point (uint8)
-        scale: frustum size
-        points3d_size: size of the scatter points for 3D points
+        If save_path is provided, saves four images with suffixes _1, _2, _3, _4.
         """
-        fig = plt.figure()
-        ax = fig.add_subplot(111, projection='3d')
+        import os
 
-        colors = plt.cm.get_cmap('tab10', len(camera_poses))  # automatic colors
-        for i, (R, C) in enumerate(camera_poses):
-            color = colors(i) if hasattr(colors, '__call__') else 'r'
-            draw_camera_frustum(ax, R, C, scale=scale, color=color)
-            ax.scatter([], [], [], c=[color], marker='o', label=f'Camera {i + 1}')  # dummy for legend
+        # Four default angles
+        angles = [(20, -60), (20, 60), (60, -60), (60, 60)]
 
-        # 3D points
-        if points3d is not None:
-            if points3d_color is not None and len(points3d_color) == len(points3d):
-                # Normalize colors to [0,1] for matplotlib
-                colors_norm = points3d_color.astype(np.float32) / 255.0
-                ax.scatter(points3d[:, 0], points3d[:, 1], points3d[:, 2],
-                           c=colors_norm, marker='.', s=points3d_size, label='3D points')
+        # Handle base save path
+        if save_path is not None:
+            base_dir, base_file = os.path.split(save_path)
+            base_name, ext = os.path.splitext(base_file)
+            base_dir = base_dir or "."  # default current directory
+            os.makedirs(base_dir, exist_ok=True)
+        else:
+            base_dir = "."
+            base_name = "frustum_view"
+            ext = ".png"
+
+        for i, (elev, azim) in enumerate(angles, 1):
+            fig = plt.figure()
+            ax = fig.add_subplot(111, projection="3d")
+
+            # Plot cameras
+            colors = plt.cm.get_cmap("tab10", len(camera_poses))
+            for j, (R, C) in enumerate(camera_poses):
+                color = colors(j) if hasattr(colors, "__call__") else "r"
+                draw_camera_frustum(ax, R, C, scale=scale, color=color)
+                ax.scatter([], [], [], c=[color], marker="o", label=f"Camera {j + 1}")  # dummy for legend
+
+            # Plot 3D points
+            if points3d is not None:
+                if points3d_color is not None and len(points3d_color) == len(points3d):
+                    colors_norm = points3d_color.astype(np.float32) / 255.0
+                    ax.scatter(
+                        points3d[:, 0], points3d[:, 1], points3d[:, 2],
+                        c=colors_norm, marker=".", s=points3d_size, label="3D points"
+                    )
+                else:
+                    ax.scatter(
+                        points3d[:, 0], points3d[:, 1], points3d[:, 2],
+                        c="g", marker=".", s=points3d_size, label="3D points"
+                    )
+
+            ax.set_xlabel("X")
+            ax.set_ylabel("Y")
+            ax.set_zlabel("Z")
+            ax.set_box_aspect([1, 1, 1])
+            ax.legend()
+            ax.view_init(elev=elev, azim=azim)
+
+            # Save figure
+            if save_path is not None:
+                save_file = os.path.join(base_dir, f"{base_name}_{i}{ext}")
+                plt.savefig(save_file)
+
+            # Show or close
+            if show:
+                plt.show()
             else:
-                ax.scatter(points3d[:, 0], points3d[:, 1], points3d[:, 2],
-                           c='g', marker='.', s=points3d_size, label='3D points')
+                plt.close(fig)
 
-        # Axis labels and aspect
-        ax.set_xlabel('X')
-        ax.set_ylabel('Y')
-        ax.set_zlabel('Z')
-        ax.set_box_aspect([1, 1, 1])
-
-        # Legend
-        ax.legend()
-
-        # Optional: set camera-friendly perspective
-        ax.view_init(elev=20, azim=-60)
-
-        plt.show()
 
     @classmethod
     def plot_cameras_surface(cls, camera_poses, points3d=None, points3d_color=None, scale=0.33):
