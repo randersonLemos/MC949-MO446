@@ -11,14 +11,18 @@ from classes.camera import SimplePinholeCamera
 from classes.data import Data
 
 
-def StructedFromMotionPair(imag1Path, imag2Path, save_plot_dir="output", show_plot=False):
+def StructedFromMotionPair(imag1Path, imag2Path, save_plot_dir="output", show_plot=False, show_plot_3d=False,
+                           fx=None, fy=None, cx=None, cy=None):
     """
     Run Structure-from-Motion pipeline on a pair of images.
 
     Parameters:
         imag1Path (str): Path to first image.
         imag2Path (str): Path to second image.
-        out_dir (str): Directory where output images will be saved.
+        save_plot_dir (str): Directory where output images will be saved.
+        show_plot (bool): If True, plots will be shown in interactive mode.
+        fx, fy (float): Optional focal lengths (pixels). If None, estimated from image size.
+        cx, cy (float): Optional principal point coordinates (pixels). If None, image center used.
     """
     os.makedirs(save_plot_dir, exist_ok=True)
 
@@ -75,10 +79,13 @@ def StructedFromMotionPair(imag1Path, imag2Path, save_plot_dir="output", show_pl
     # 6. Camera intrinsics
     imag_gray = next(iter(imags_gray))
     imag_H, imag_W = imag_gray.shape
-    came_f = max(imag_H, imag_W)
-    came_cx = imag_W / 2
-    came_cy = imag_H / 2
-    camera = SimplePinholeCamera(f=came_f, cx=came_cx, cy=came_cy)
+
+    came_fx = fx if fx is not None else max(imag_H, imag_W)
+    came_fy = fy if fy is not None else max(imag_H, imag_W)
+    came_cx = cx if cx is not None else imag_W / 2
+    came_cy = cy if cy is not None else imag_H / 2
+
+    camera = SimplePinholeCamera(fx=came_fx, fy=came_fy, cx=came_cx, cy=came_cy)
     sip.set_intrinsic(camera.K())
 
     # 7. Essential matrix + pose + 3D reconstruction
@@ -101,7 +108,7 @@ def StructedFromMotionPair(imag1Path, imag2Path, save_plot_dir="output", show_pl
     Plot.plot_cameras_frustum(
         [(R1, t1), (R2, t2)], points3d, points3d_color, points3d_size=15,
         save_path=os.path.join(save_plot_dir, "07_3d_points_color.png"),
-        show=show_plot
+        show=show_plot_3d
     )
 
     return sip
@@ -120,4 +127,14 @@ if __name__ == '__main__':
     print(paths)
 
     imag1Path, imag2Path = next(iter(zip(paths[:-1], paths[1:])))
-    superimagepair = StructedFromMotionPair(imag1Path, imag2Path, save_plot_dir=f"output/sfmp_{dataset}", show_plot=False)
+    superimagepair = StructedFromMotionPair(imag1Path, imag2Path, save_plot_dir=f"output/sfmp_{dataset}", show_plot=False, show_plot_3d=True)
+
+
+    fx = 5.44309962e+03
+    fy = 5.50161148e+03
+    cx = 1.65444814e+03
+    cy = 2.18952236e+03
+    superimagepair = StructedFromMotionPair(imag1Path, imag2Path, save_plot_dir=f"output/sfmp_{dataset}_cal", show_plot=False, show_plot_3d=True,
+                                            fx=fx, fy=fy, cx=cx, cy=cy)
+
+    Plot.show()
