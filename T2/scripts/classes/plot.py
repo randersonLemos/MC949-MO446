@@ -6,7 +6,6 @@ import open3d as o3d
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 
-
 def draw_camera_frustum(ax, R, t, scale=0.1, depth_factor=3.0, color='r'):
     """
     Draw a simple camera frustum as a pyramid pointing along Z-axis.
@@ -47,7 +46,6 @@ def draw_camera_frustum(ax, R, t, scale=0.1, depth_factor=3.0, color='r'):
     ax.quiver(origin[0], origin[1], origin[2],
               z_axis[0], z_axis[1], z_axis[2],
               color=color, arrow_length_ratio=0.2, linewidth=2)
-
 
 
 class Plot:
@@ -94,14 +92,21 @@ class Plot:
                              save_path=None,
                              show=False):
         """
-        Plot multiple camera frustums and optional 3D points from four different angles.
+        Plot multiple camera frustums and optional 3D points.
 
-        If save_path is provided, saves four images with suffixes _1, _2, _3, _4.
+        - If save_path is provided, saves nine images with suffixes _1 ... _9.
+        - If show=True, shows just one plot (the first angle).
         """
         import os
+        import matplotlib.pyplot as plt
+        import numpy as np
 
-        # Four default angles
-        angles = [(20, -60), (20, 60), (60, -60), (60, 60)]
+        # Nine default angles (3 elevations × 3 azimuths)
+        angles = [
+            (20, -60), (20, 0), (20, 60),
+            (40, -60), (40, 0), (40, 60),
+            (60, -60), (60, 0), (60, 60)
+        ]
 
         # Handle base save path
         if save_path is not None:
@@ -114,30 +119,60 @@ class Plot:
             base_name = "frustum_view"
             ext = ".png"
 
-        for i, (elev, azim) in enumerate(angles, 1):
+        # Save all 9 views
+        if save_path is not None:
+            for i, (elev, azim) in enumerate(angles, 1):
+                fig = plt.figure()
+                ax = fig.add_subplot(111, projection="3d")
+
+                # Plot cameras
+                colors = plt.cm.get_cmap("tab10", len(camera_poses))
+                for j, (R, C) in enumerate(camera_poses):
+                    color = colors(j) if hasattr(colors, "__call__") else "r"
+                    draw_camera_frustum(ax, R, C, scale=scale, color=color)
+                    ax.scatter([], [], [], c=[color], marker="o", label=f"Camera {j + 1}")
+
+                # Plot 3D points
+                if points3d is not None:
+                    if points3d_color is not None and len(points3d_color) == len(points3d):
+                        colors_norm = points3d_color.astype(np.float32) / 255.0
+                        ax.scatter(points3d[:, 0], points3d[:, 1], points3d[:, 2],
+                                   c=colors_norm, marker=".", s=points3d_size, label="3D points")
+                    else:
+                        ax.scatter(points3d[:, 0], points3d[:, 1], points3d[:, 2],
+                                   c="g", marker=".", s=points3d_size, label="3D points")
+
+                ax.set_xlabel("X")
+                ax.set_ylabel("Y")
+                ax.set_zlabel("Z")
+                ax.set_box_aspect([1, 1, 1])
+                ax.legend()
+                ax.view_init(elev=elev, azim=azim)
+
+                save_file = os.path.join(base_dir, f"{base_name}_{i}{ext}")
+                plt.savefig(save_file)
+                plt.close(fig)
+
+        # Show just one angle (the first one)
+        if show:
+            elev, azim = angles[0]  # pick the first view
             fig = plt.figure()
             ax = fig.add_subplot(111, projection="3d")
 
-            # Plot cameras
             colors = plt.cm.get_cmap("tab10", len(camera_poses))
             for j, (R, C) in enumerate(camera_poses):
                 color = colors(j) if hasattr(colors, "__call__") else "r"
                 draw_camera_frustum(ax, R, C, scale=scale, color=color)
-                ax.scatter([], [], [], c=[color], marker="o", label=f"Camera {j + 1}")  # dummy for legend
+                ax.scatter([], [], [], c=[color], marker="o", label=f"Camera {j + 1}")
 
-            # Plot 3D points
             if points3d is not None:
                 if points3d_color is not None and len(points3d_color) == len(points3d):
                     colors_norm = points3d_color.astype(np.float32) / 255.0
-                    ax.scatter(
-                        points3d[:, 0], points3d[:, 1], points3d[:, 2],
-                        c=colors_norm, marker=".", s=points3d_size, label="3D points"
-                    )
+                    ax.scatter(points3d[:, 0], points3d[:, 1], points3d[:, 2],
+                               c=colors_norm, marker=".", s=points3d_size, label="3D points")
                 else:
-                    ax.scatter(
-                        points3d[:, 0], points3d[:, 1], points3d[:, 2],
-                        c="g", marker=".", s=points3d_size, label="3D points"
-                    )
+                    ax.scatter(points3d[:, 0], points3d[:, 1], points3d[:, 2],
+                               c="g", marker=".", s=points3d_size, label="3D points")
 
             ax.set_xlabel("X")
             ax.set_ylabel("Y")
@@ -146,16 +181,7 @@ class Plot:
             ax.legend()
             ax.view_init(elev=elev, azim=azim)
 
-            # Save figure
-            if save_path is not None:
-                save_file = os.path.join(base_dir, f"{base_name}_{i}{ext}")
-                plt.savefig(save_file)
-
-            # Show or close
-            if show:
-                plt.show()
-            else:
-                plt.close(fig)
+            plt.show()
 
 
     @classmethod

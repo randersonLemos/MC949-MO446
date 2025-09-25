@@ -10,7 +10,6 @@ from classes.camera import SimplePinholeCamera
 from classes.sfmGlobal import SfmGlobal
 
 
-
 def StructedFromMotionPair(imag1Path, imag2Path, verbose=0):
     # paths = ImageMisc.get_paths(ROOT_DIR_IMAGES, '*max.png')
 
@@ -140,10 +139,10 @@ def get_banana2(n: int):
 
 
 if __name__ == '__main__':
-    # paths = get_casa(4)
+    paths = get_casa(4)
     # paths = get_chaleira()
     # paths = get_banana(5)
-    paths = get_banana2(3)
+    # paths = get_banana2(3)
 
 
     ################
@@ -163,15 +162,15 @@ if __name__ == '__main__':
         superimagepair = StructedFromMotionPair(imag1Path, imag2Path, verbose=0)
         SUPERIMAGEPAIRs.append(superimagepair)
 
-    camera_poses, points3d, points3d_color = StructedFromMotionSequential(SUPERIMAGEPAIRs, verbose=False)
+    camera_poses, points3d, points3d_color = StructedFromMotionSequential(SUPERIMAGEPAIRs, verbose=2)
 
     Plot.plot_cameras_frustum(camera_poses, points3d)
     Plot.plot_cameras_frustum(camera_poses, points3d, points3d_color, points3d_size=15)
 
-    # points3d, points3d_color = remove_nearby_points(points3d, points3d_color, threshold=0.1)
-    # Plot.plot_cameras_frustum(camera_poses, points3d, points3d_color, points3d_size=15)
+    points3d, points3d_color = remove_nearby_points(points3d, points3d_color, threshold=0.1)
+    Plot.plot_cameras_frustum(camera_poses, points3d, points3d_color, points3d_size=15)
 
-    # points3d, points3d_color = remove_outliers_std(points3d, points3d_color, n_std=2)
+    points3d, points3d_color = remove_outliers_std(points3d, points3d_color, n_std=2)
 
     # Plot.plot_cameras_frustum(camera_poses, points3d, points3d_color, points3d_size=15)
     # Plot.plot_cameras_surface(camera_poses, points3d, points3d_color)

@@ -1,3 +1,4 @@
+import os
 import cv2
 
 
@@ -9,12 +10,6 @@ from classes.superimagepair import SuperImagePair
 from classes.camera import SimplePinholeCamera
 from classes.data import Data
 
-
-import os
-import matplotlib.pyplot as plt
-
-
-import os
 
 def StructedFromMotionPair(imag1Path, imag2Path, save_plot_dir="output", show_plot=False):
     """
@@ -112,10 +107,17 @@ def StructedFromMotionPair(imag1Path, imag2Path, save_plot_dir="output", show_pl
     return sip
 
 
+DATA = {
+    'casa' : Data.get_casa,
+    'chaleira' : Data.get_chaleira,
+    'banana' : Data.get_banana,
+    'banana2' : Data.get_banana2
+}
+
 if __name__ == '__main__':
-    paths = Data.get_banana2(2)
+    dataset = 'banana2'
+    paths = DATA[dataset](2)
     print(paths)
 
-
     imag1Path, imag2Path = next(iter(zip(paths[:-1], paths[1:])))
-    superimagepair = StructedFromMotionPair(imag1Path, imag2Path, save_plot_dir="output", show_plot=False)
+    superimagepair = StructedFromMotionPair(imag1Path, imag2Path, save_plot_dir=f"output/sfmp_{dataset}", show_plot=False)
