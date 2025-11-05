@@ -1,0 +1,26 @@
+# PyTorch and Torchvision for CUDA 11.8 (compatible with NVIDIA MX330)
+--extra-index-url https://download.pytorch.org/whl/cu118
+torch==2.3.1
+torchvision==0.18.1
+torchaudio==2.3.1
+
+# Ultralytics (YOLO models)
+ultralytics==8.3.0
+
+# General dependencies often used with computer vision/ML
+numpy>=1.24.0
+matplotlib>=3.7.0
+Pillow>=10.0.0
+opencv-python>=4.8.0
+pyyaml>=6.0
+
+
+jupyter
+ipykernel
+scipy
+pyttsx3
+simpleaudio
+timm
+piper-tts
+# For Segment Anything (remove # if needed)
+#-e git+https://github.com/facebookresearch/segment-anything.git#egg=segment-anything

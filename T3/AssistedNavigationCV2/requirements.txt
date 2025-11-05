@@ -1,0 +1,23 @@
+# Detecção e Rastreamento
+ultralytics>=8.0.0
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Estimação de Profundidade
+timm>=0.9.0
+
+# Text-to-Speech
+pyttsx3>=2.90
+
+# Processamento de Imagem e Vídeo
+opencv-python>=4.8.0
+numpy>=1.24.0
+
+# Utilitários
+scipy>=1.10.0
+
+#simpleaudio
+simpleaudio
+
+#TTS
+piper-tts>=1.2.0
