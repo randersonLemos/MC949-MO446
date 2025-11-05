@@ -86,6 +86,8 @@ def StructedFromMotionPair(imag1Path, imag2Path, save_plot_dir="output", show_pl
     came_cy = cy if cy is not None else imag_H / 2
 
     camera = SimplePinholeCamera(fx=came_fx, fy=came_fy, cx=came_cx, cy=came_cy)
+    print('Intrinsic K')
+    print(camera.K())
     sip.set_intrinsic(camera.K())
 
     # 7. Essential matrix + pose + 3D reconstruction
@@ -137,7 +139,7 @@ DATA = {
 }
 
 if __name__ == '__main__':
-    dataset = 'rosto'
+    dataset = 'banana3'
     paths = DATA[dataset](2)
     print(paths)
 

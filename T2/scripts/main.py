@@ -8,6 +8,8 @@ from classes.superimage import SuperImage
 from classes.superimagepair import SuperImagePair
 from classes.camera import SimplePinholeCamera
 from classes.sfmGlobal import SfmGlobal
+from misc.remove_nearby_points import remove_nearby_points
+from misc.remove_outliers_std import remove_outliers_std
 
 
 def StructedFromMotionPair(imag1Path, imag2Path, verbose=0):
@@ -62,7 +64,7 @@ def StructedFromMotionPair(imag1Path, imag2Path, verbose=0):
     came_f = max(imag_H, imag_W)
     came_cx = imag_W/2
     came_cy = imag_H/2
-    camera = SimplePinholeCamera(f=came_f, cx=came_cx, cy=came_cy)
+    camera = SimplePinholeCamera(fx=came_f, fy=came_f, cx=came_cx, cy=came_cy)
 
     sip.set_intrinsic((camera.K()))
 
@@ -139,7 +141,7 @@ def get_banana2(n: int):
 
 
 if __name__ == '__main__':
-    paths = get_casa(4)
+    paths = get_casa(5)
     # paths = get_chaleira()
     # paths = get_banana(5)
     # paths = get_banana2(3)
@@ -164,14 +166,36 @@ if __name__ == '__main__':
 
     camera_poses, points3d, points3d_color = StructedFromMotionSequential(SUPERIMAGEPAIRs, verbose=2)
 
-    Plot.plot_cameras_frustum(camera_poses, points3d)
-    Plot.plot_cameras_frustum(camera_poses, points3d, points3d_color, points3d_size=15)
+    # Plot.plot_cameras_frustum(
+    #     camera_poses, points3d, points3d_color, points3d_size=15,
+    #     save_path='seq5casa/sfms_raw',
+    #     show=False
+    #
+    # )
 
-    points3d, points3d_color = remove_nearby_points(points3d, points3d_color, threshold=0.1)
-    Plot.plot_cameras_frustum(camera_poses, points3d, points3d_color, points3d_size=15)
+    # points3d, points3d_color = remove_nearby_points(points3d, points3d_color, threshold=0.1)
+    # Plot.plot_cameras_frustum(
+    #     camera_poses, points3d, points3d_color, points3d_size=15,
+    #     show=True
+    # )
 
     points3d, points3d_color = remove_outliers_std(points3d, points3d_color, n_std=2)
+    # Plot.plot_cameras_frustum(
+    #     camera_poses, points3d, points3d_color, points3d_size=15,
+    #     save_path='seq5casa/sfms_cleaned',
+    #     show=False
+    # )
 
-    # Plot.plot_cameras_frustum(camera_poses, points3d, points3d_color, points3d_size=15)
-    # Plot.plot_cameras_surface(camera_poses, points3d, points3d_color)
-    # Plot.show_poisson_surface_plot(camera_poses, points3d, points3d_color)
+    Plot.plot_cameras_surface(
+        camera_poses, points3d, points3d_color,
+        save_path='seq5casa/sfms_surface',
+        show=False
+    )
+
+    # Plot.show_poisson_surface_plot(
+    #     camera_poses, points3d, points3d_color,
+    #     save_path='seq5casa/sfms_poisson',
+    #     show=False
+    # )
+
+    Plot.show()
