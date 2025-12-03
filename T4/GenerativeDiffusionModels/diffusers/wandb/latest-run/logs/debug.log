@@ -1,0 +1,24 @@
+2025-11-28 21:09:21,083 INFO    MainThread:286785 [wandb_setup.py:_flush():80] Current SDK version is 0.23.0
+2025-11-28 21:09:21,083 INFO    MainThread:286785 [wandb_setup.py:_flush():80] Configure stats pid to 286785
+2025-11-28 21:09:21,083 INFO    MainThread:286785 [wandb_setup.py:_flush():80] Loading settings from /home/zionsflow/.config/wandb/settings
+2025-11-28 21:09:21,083 INFO    MainThread:286785 [wandb_setup.py:_flush():80] Loading settings from /home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/wandb/settings
+2025-11-28 21:09:21,083 INFO    MainThread:286785 [wandb_setup.py:_flush():80] Loading settings from environment variables
+2025-11-28 21:09:21,083 INFO    MainThread:286785 [wandb_init.py:setup_run_log_directory():713] Logging user logs to /home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/wandb/run-20251128_210921-3mcyyecd/logs/debug.log
+2025-11-28 21:09:21,083 INFO    MainThread:286785 [wandb_init.py:setup_run_log_directory():714] Logging internal logs to /home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/wandb/run-20251128_210921-3mcyyecd/logs/debug-internal.log
+2025-11-28 21:09:21,083 INFO    MainThread:286785 [wandb_init.py:init():840] calling init triggers
+2025-11-28 21:09:21,083 INFO    MainThread:286785 [wandb_init.py:init():845] wandb.init called with sweep_config: {}
+config: {'_wandb': {}}
+2025-11-28 21:09:21,083 INFO    MainThread:286785 [wandb_init.py:init():888] starting backend
+2025-11-28 21:09:21,313 INFO    MainThread:286785 [wandb_init.py:init():891] sending inform_init request
+2025-11-28 21:09:21,315 INFO    MainThread:286785 [wandb_init.py:init():899] backend started and connected
+2025-11-28 21:09:21,316 INFO    MainThread:286785 [wandb_init.py:init():969] updated telemetry
+2025-11-28 21:09:21,321 INFO    MainThread:286785 [wandb_init.py:init():993] communicating run to backend with 90.0 second timeout
+2025-11-28 21:09:21,989 INFO    MainThread:286785 [wandb_init.py:init():1040] starting run threads in backend
+2025-11-28 21:09:22,035 INFO    MainThread:286785 [wandb_run.py:_console_start():2504] atexit reg
+2025-11-28 21:09:22,035 INFO    MainThread:286785 [wandb_run.py:_redirect():2352] redirect: wrap_raw
+2025-11-28 21:09:22,035 INFO    MainThread:286785 [wandb_run.py:_redirect():2421] Wrapping output streams.
+2025-11-28 21:09:22,035 INFO    MainThread:286785 [wandb_run.py:_redirect():2444] Redirects installed.
+2025-11-28 21:09:22,037 INFO    MainThread:286785 [wandb_init.py:init():1080] run started, returning control to user process
+2025-11-28 21:09:22,037 INFO    MainThread:286785 [wandb_run.py:_config_callback():1385] config_cb None None {'pretrained_model_name_or_path': 'stabilityai/stable-diffusion-xl-base-1.0', 'pretrained_vae_model_name_or_path': 'madebyollin/sdxl-vae-fp16-fix', 'revision': None, 'variant': None, 'dataset_name': 'Norod78/Yarn-art-style', 'dataset_config_name': None, 'instance_data_dir': None, 'cache_dir': None, 'image_column': 'image', 'caption_column': 'text', 'repeats': 1, 'class_data_dir': None, 'instance_prompt': 'a photo in sks yarn art style', 'class_prompt': None, 'validation_prompt': None, 'num_validation_images': 4, 'validation_epochs': 50, 'do_edm_style_training': False, 'with_prior_preservation': False, 'prior_loss_weight': 1.0, 'num_class_images': 100, 'output_dir': 'lora-trained-xl-yarn-style', 'output_kohya_format': False, 'seed': 0, 'resolution': 512, 'center_crop': False, 'random_flip': False, 'train_text_encoder': False, 'train_batch_size': 1, 'sample_batch_size': 4, 'num_train_epochs': 100, 'max_train_steps': 500, 'checkpointing_steps': 500, 'checkpoints_total_limit': None, 'resume_from_checkpoint': None, 'gradient_accumulation_steps': 4, 'gradient_checkpointing': False, 'learning_rate': 0.0001, 'text_encoder_lr': 5e-06, 'scale_lr': False, 'lr_scheduler': 'constant', 'snr_gamma': None, 'lr_warmup_steps': 0, 'lr_num_cycles': 1, 'lr_power': 1.0, 'dataloader_num_workers': 0, 'optimizer': 'AdamW', 'use_8bit_adam': False, 'adam_beta1': 0.9, 'adam_beta2': 0.999, 'prodigy_beta3': None, 'prodigy_decouple': True, 'adam_weight_decay': 0.0001, 'adam_weight_decay_text_encoder': 0.001, 'adam_epsilon': 1e-08, 'prodigy_use_bias_correction': True, 'prodigy_safeguard_warmup': True, 'max_grad_norm': 1.0, 'push_to_hub': False, 'hub_token': None, 'hub_model_id': None, 'logging_dir': 'logs', 'allow_tf32': False, 'report_to': 'wandb', 'mixed_precision': 'fp16', 'prior_generation_precision': None, 'local_rank': -1, 'enable_xformers_memory_efficient_attention': False, 'rank': 4, 'lora_dropout': 0.0, 'use_dora': False, 'image_interpolation_mode': 'lanczos'}
+2025-11-28 21:23:06,175 INFO    wandb-AsyncioManager-main:286785 [service_client.py:_forward_responses():80] Reached EOF.
+2025-11-28 21:23:06,175 INFO    wandb-AsyncioManager-main:286785 [mailbox.py:close():137] Closing mailbox, abandoning 1 handles.

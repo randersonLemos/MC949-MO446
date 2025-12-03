@@ -1,0 +1,59 @@
+{
+  "os": "Linux-6.8.0-87-generic-x86_64-with-glibc2.35",
+  "python": "CPython 3.10.12",
+  "startedAt": "2025-11-29T00:09:21.082747Z",
+  "args": [
+    "--pretrained_model_name_or_path=stabilityai/stable-diffusion-xl-base-1.0",
+    "--dataset_name=Norod78/Yarn-art-style",
+    "--caption_column=text",
+    "--image_column=image",
+    "--pretrained_vae_model_name_or_path=madebyollin/sdxl-vae-fp16-fix",
+    "--output_dir=lora-trained-xl-yarn-style",
+    "--mixed_precision=fp16",
+    "--instance_prompt=a photo in sks yarn art style",
+    "--resolution=512",
+    "--train_batch_size=1",
+    "--gradient_accumulation_steps=4",
+    "--learning_rate=1e-4",
+    "--report_to=wandb",
+    "--lr_scheduler=constant",
+    "--lr_warmup_steps=0",
+    "--max_train_steps=500",
+    "--seed=0"
+  ],
+  "program": "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/examples/dreambooth/train_dreambooth_lora_sdxl.py",
+  "codePath": "examples/dreambooth/train_dreambooth_lora_sdxl.py",
+  "codePathLocal": "examples/dreambooth/train_dreambooth_lora_sdxl.py",
+  "git": {
+    "remote": "https://github.com/huggingface/diffusers",
+    "commit": "b010a8ce0c5b5288045045f9f79c496899e80b5a"
+  },
+  "email": "randerson.lemos@gmail.com",
+  "root": "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers",
+  "host": "zionsflow-System-Product-Name",
+  "executable": "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/.lora/bin/python3.10",
+  "cpu_count": 8,
+  "cpu_count_logical": 16,
+  "gpu": "NVIDIA GeForce RTX 3060",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "470887243776",
+      "used": "426770165760"
+    }
+  },
+  "memory": {
+    "total": "50342821888"
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce RTX 3060",
+      "memoryTotal": "12884901888",
+      "cudaCores": 3584,
+      "architecture": "Ampere",
+      "uuid": "GPU-a6915ac9-2412-4e67-4d16-ac59e08910c9"
+    }
+  ],
+  "cudaVersion": "12.2",
+  "writerId": "56ad3cblh2vyaqfhyf3s0i2o47ot06g5"
+}

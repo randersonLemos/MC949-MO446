@@ -1,0 +1,58 @@
+11/28/2025 21:09:22 - INFO - __main__ - ***** Running training *****
+11/28/2025 21:09:22 - INFO - __main__ -   Num examples = 18
+11/28/2025 21:09:22 - INFO - __main__ -   Num batches each epoch = 18
+11/28/2025 21:09:22 - INFO - __main__ -   Num Epochs = 100
+11/28/2025 21:09:22 - INFO - __main__ -   Instantaneous batch size per device = 1
+11/28/2025 21:09:22 - INFO - __main__ -   Total train batch size (w. parallel, distributed & accumulation) = 4
+11/28/2025 21:09:22 - INFO - __main__ -   Gradient Accumulation steps = 4
+11/28/2025 21:09:22 - INFO - __main__ -   Total optimization steps = 500
+Steps: 100%|████████████████████████████████| 500/500 [13:43<00:00,  1.50s/it, loss=0.29, lr=0.0001]11/28/2025 21:23:05 - INFO - accelerate.accelerator - Saving current state to lora-trained-xl-yarn-style/checkpoint-500
+Model weights saved in lora-trained-xl-yarn-style/checkpoint-500/pytorch_lora_weights.safetensors
+11/28/2025 21:23:06 - INFO - accelerate.checkpointing - Optimizer state saved in lora-trained-xl-yarn-style/checkpoint-500/optimizer.bin
+11/28/2025 21:23:06 - INFO - accelerate.checkpointing - Scheduler state saved in lora-trained-xl-yarn-style/checkpoint-500/scheduler.bin
+11/28/2025 21:23:06 - INFO - accelerate.checkpointing - Sampler state for dataloader 0 saved in lora-trained-xl-yarn-style/checkpoint-500/sampler.bin
+11/28/2025 21:23:06 - INFO - accelerate.checkpointing - Gradient scaler state saved in lora-trained-xl-yarn-style/checkpoint-500/scaler.pt
+11/28/2025 21:23:06 - INFO - accelerate.checkpointing - Random states saved in lora-trained-xl-yarn-style/checkpoint-500/random_states_0.pkl
+11/28/2025 21:23:06 - INFO - __main__ - Saved state to lora-trained-xl-yarn-style/checkpoint-500
+Steps: 100%|██████████████████████████████| 500/500 [13:44<00:00,  1.50s/it, loss=0.0139, lr=0.0001]Traceback (most recent call last):
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/examples/dreambooth/train_dreambooth_lora_sdxl.py", line 2036, in <module>
+    main(args)
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/examples/dreambooth/train_dreambooth_lora_sdxl.py", line 1950, in main
+    unet = unet.to(torch.float32)
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/src/diffusers/models/modeling_utils.py", line 1430, in to
+    return super().to(*args, **kwargs)
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/.lora/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1371, in to
+    return self._apply(convert)
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/.lora/lib/python3.10/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/.lora/lib/python3.10/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/.lora/lib/python3.10/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  [Previous line repeated 2 more times]
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/.lora/lib/python3.10/site-packages/torch/nn/modules/module.py", line 957, in _apply
+    param_applied = fn(param)
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/.lora/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1357, in convert
+    return t.to(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 22.00 MiB. GPU 0 has a total capacity of 11.76 GiB of which 8.56 MiB is free. Including non-PyTorch memory, this process has 11.56 GiB memory in use. Of the allocated memory 10.80 GiB is allocated by PyTorch, and 624.69 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/examples/dreambooth/train_dreambooth_lora_sdxl.py", line 2036, in <module>
+    main(args)
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/examples/dreambooth/train_dreambooth_lora_sdxl.py", line 1950, in main
+    unet = unet.to(torch.float32)
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/src/diffusers/models/modeling_utils.py", line 1430, in to
+    return super().to(*args, **kwargs)
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/.lora/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1371, in to
+    return self._apply(convert)
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/.lora/lib/python3.10/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/.lora/lib/python3.10/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/.lora/lib/python3.10/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  [Previous line repeated 2 more times]
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/.lora/lib/python3.10/site-packages/torch/nn/modules/module.py", line 957, in _apply
+    param_applied = fn(param)
+  File "/home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/.lora/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1357, in convert
+    return t.to(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 22.00 MiB. GPU 0 has a total capacity of 11.76 GiB of which 8.56 MiB is free. Including non-PyTorch memory, this process has 11.56 GiB memory in use. Of the allocated memory 10.80 GiB is allocated by PyTorch, and 624.69 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

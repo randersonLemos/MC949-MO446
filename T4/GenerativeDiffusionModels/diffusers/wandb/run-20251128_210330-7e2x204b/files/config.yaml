@@ -1,0 +1,226 @@
+_wandb:
+    value:
+        cli_version: 0.23.0
+        e:
+            wz78gbz4xuftvvcxrlb7mkaecwl0rhp5:
+                args:
+                    - --pretrained_model_name_or_path=stabilityai/stable-diffusion-xl-base-1.0
+                    - --dataset_name=Norod78/Yarn-art-style
+                    - --caption_column=text
+                    - --image_column=image
+                    - --pretrained_vae_model_name_or_path=madebyollin/sdxl-vae-fp16-fix
+                    - --output_dir=lora-trained-xl-yarn-style
+                    - --mixed_precision=fp16
+                    - --instance_prompt=a photo in sks yarn art style
+                    - --resolution=1024
+                    - --train_batch_size=1
+                    - --gradient_accumulation_steps=4
+                    - --learning_rate=1e-4
+                    - --report_to=wandb
+                    - --lr_scheduler=constant
+                    - --lr_warmup_steps=0
+                    - --max_train_steps=500
+                    - --validation_prompt=A landscape painting of a mountain in sks yarn art style
+                    - --validation_epochs=25
+                    - --seed=0
+                codePath: examples/dreambooth/train_dreambooth_lora_sdxl.py
+                codePathLocal: examples/dreambooth/train_dreambooth_lora_sdxl.py
+                cpu_count: 8
+                cpu_count_logical: 16
+                cudaVersion: "12.2"
+                disk:
+                    /:
+                        total: "470887243776"
+                        used: "426769465344"
+                email: randerson.lemos@gmail.com
+                executable: /home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/.lora/bin/python3.10
+                git:
+                    commit: b010a8ce0c5b5288045045f9f79c496899e80b5a
+                    remote: https://github.com/huggingface/diffusers
+                gpu: NVIDIA GeForce RTX 3060
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ampere
+                      cudaCores: 3584
+                      memoryTotal: "12884901888"
+                      name: NVIDIA GeForce RTX 3060
+                      uuid: GPU-a6915ac9-2412-4e67-4d16-ac59e08910c9
+                host: zionsflow-System-Product-Name
+                memory:
+                    total: "50342821888"
+                os: Linux-6.8.0-87-generic-x86_64-with-glibc2.35
+                program: /home/zionsflow/Documents/GenerativeDiffusionModels/diffusers/examples/dreambooth/train_dreambooth_lora_sdxl.py
+                python: CPython 3.10.12
+                root: /home/zionsflow/Documents/GenerativeDiffusionModels/diffusers
+                startedAt: "2025-11-29T00:03:30.475654Z"
+                writerId: wz78gbz4xuftvvcxrlb7mkaecwl0rhp5
+        m: []
+        python_version: 3.10.12
+        t:
+            "1":
+                - 1
+                - 11
+                - 41
+                - 49
+                - 51
+                - 71
+                - 83
+                - 98
+            "2":
+                - 1
+                - 11
+                - 41
+                - 49
+                - 51
+                - 71
+                - 83
+                - 98
+            "4": 3.10.12
+            "5": 0.23.0
+            "6": 4.57.3
+            "12": 0.23.0
+            "13": linux-x86_64
+adam_beta1:
+    value: 0.9
+adam_beta2:
+    value: 0.999
+adam_epsilon:
+    value: 1e-08
+adam_weight_decay:
+    value: 0.0001
+adam_weight_decay_text_encoder:
+    value: 0.001
+allow_tf32:
+    value: false
+cache_dir:
+    value: null
+caption_column:
+    value: text
+center_crop:
+    value: false
+checkpointing_steps:
+    value: 500
+checkpoints_total_limit:
+    value: null
+class_data_dir:
+    value: null
+class_prompt:
+    value: null
+dataloader_num_workers:
+    value: 0
+dataset_config_name:
+    value: null
+dataset_name:
+    value: Norod78/Yarn-art-style
+do_edm_style_training:
+    value: false
+enable_xformers_memory_efficient_attention:
+    value: false
+gradient_accumulation_steps:
+    value: 4
+gradient_checkpointing:
+    value: false
+hub_model_id:
+    value: null
+hub_token:
+    value: null
+image_column:
+    value: image
+image_interpolation_mode:
+    value: lanczos
+instance_data_dir:
+    value: null
+instance_prompt:
+    value: a photo in sks yarn art style
+learning_rate:
+    value: 0.0001
+local_rank:
+    value: -1
+logging_dir:
+    value: logs
+lora_dropout:
+    value: 0
+lr_num_cycles:
+    value: 1
+lr_power:
+    value: 1
+lr_scheduler:
+    value: constant
+lr_warmup_steps:
+    value: 0
+max_grad_norm:
+    value: 1
+max_train_steps:
+    value: 500
+mixed_precision:
+    value: fp16
+num_class_images:
+    value: 100
+num_train_epochs:
+    value: 100
+num_validation_images:
+    value: 4
+optimizer:
+    value: AdamW
+output_dir:
+    value: lora-trained-xl-yarn-style
+output_kohya_format:
+    value: false
+pretrained_model_name_or_path:
+    value: stabilityai/stable-diffusion-xl-base-1.0
+pretrained_vae_model_name_or_path:
+    value: madebyollin/sdxl-vae-fp16-fix
+prior_generation_precision:
+    value: null
+prior_loss_weight:
+    value: 1
+prodigy_beta3:
+    value: null
+prodigy_decouple:
+    value: true
+prodigy_safeguard_warmup:
+    value: true
+prodigy_use_bias_correction:
+    value: true
+push_to_hub:
+    value: false
+random_flip:
+    value: false
+rank:
+    value: 4
+repeats:
+    value: 1
+report_to:
+    value: wandb
+resolution:
+    value: 1024
+resume_from_checkpoint:
+    value: null
+revision:
+    value: null
+sample_batch_size:
+    value: 4
+scale_lr:
+    value: false
+seed:
+    value: 0
+snr_gamma:
+    value: null
+text_encoder_lr:
+    value: 5e-06
+train_batch_size:
+    value: 1
+train_text_encoder:
+    value: false
+use_8bit_adam:
+    value: false
+use_dora:
+    value: false
+validation_epochs:
+    value: 25
+validation_prompt:
+    value: A landscape painting of a mountain in sks yarn art style
+variant:
+    value: null
+with_prior_preservation:
+    value: false

@@ -1,0 +1,34 @@
+# --- 1. CORE AI/ML FRAMEWORK (PINNED) ---
+# PyTorch 2.9.0 is required for compatibility with torchao 0.14.1, 
+# which fixes the 'warn_once' and C++ extension errors.
+torch==2.9.0
+torchvision==0.24.0
+torchaudio==2.9.0
+
+# --- 2. HUGGING FACE LIBRARIES (UNPINNED FOR LATEST COMPATIBILITY) ---
+# Let pip find the absolute latest versions of these libraries, as they are
+# constantly updated for compatibility with the newest PyTorch releases.
+transformers
+diffusers
+accelerate>=0.30.1
+peft
+torchao # Should resolve to 0.14.1 or newer, which is compatible with 2.9.0
+
+# --- 3. QUANTIZATION EXTRAS (PINNED TO MATCH PYTORCH 2.9.0) ---
+# fbgemm-gpu-genai 1.4.1 is the correct, compatible version for PyTorch 2.9.0.
+fbgemm-gpu-genai==1.4.1
+
+# --- 4. DATASET + UTILITIES ---
+datasets>=2.8.0
+huggingface-hub>=0.14.0
+numpy>=1.24.0
+pandas>=2.0.0
+pyarrow>=10.0.0
+tqdm>=4.64.0
+pillow>=9.0.0
+
+# --- 5. LOGGING AND MISC ---
+wandb>=0.15.0
+sentencepiece
+jupyterlab
+protobuf<4
